@@ -13,8 +13,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.smartview.ui.utils.DrawGraph
 import com.example.smartview.ui.utils.TextPainter
+import com.example.smartview.utils.JsonUtils
 
 @Composable
 fun ScatterPlot(data: List<Pair<Float, Float>>, modifier: Modifier = Modifier) {
@@ -89,4 +92,33 @@ fun ScatterPlot(data: List<Pair<Float, Float>>, modifier: Modifier = Modifier) {
             }
         }
     }
+}
+@Preview(showBackground = true)
+@Composable
+fun PreviewDemoScatterPlot() {
+    DemoScatterPlot()
+}
+
+@Composable
+fun DemoScatterPlot() {
+    val template = "{\n" +
+        "  \"type\": \"single\",\n" +
+        "  \"dataTemplate\": {\n" +
+        "    \"elements\": [\n" +
+        "      {\n" +
+        "        \"type\": \"scatterPlot\",\n" +
+        "        \"mapTo\": \"stockPrices\"\n" +
+        "      }\n" +
+        "    ]\n" +
+        "  }\n" +
+        "}"
+    val data = "[{\n" +
+        "\"stockPrices\": [   {\"x\": 1.0, \"y\": 2.5},\n" +
+        "    {\"x\": 2.0, \"y\": 3.5},\n" +
+        "    {\"x\": 3.0, \"y\": 1.5},\n" +
+        "    {\"x\": 4.0, \"y\": 4.5},\n" +
+        "    {\"x\": 5.0, \"y\": 2.0}]\n" +
+        "}]"
+
+    InterpretComponent(JsonUtils.getTemplateAndDataFromResponse(template, data))
 }

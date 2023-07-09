@@ -15,8 +15,10 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.smartview.ui.utils.TextPainter
+import com.example.smartview.utils.JsonUtils
 
 @Composable
 fun LineChart(data: List<Float>, modifier: Modifier = Modifier) {
@@ -93,4 +95,30 @@ fun LineChart(data: List<Float>, modifier: Modifier = Modifier) {
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewDemoGraph() {
+    DemoGraph()
+}
+
+@Composable
+fun DemoGraph() {
+    val template = "{\n" +
+        "  \"type\": \"single\",\n" +
+        "  \"dataTemplate\": {\n" +
+        "    \"elements\": [\n" +
+        "      {\n" +
+        "        \"type\": \"lineChart\",\n" +
+        "        \"mapTo\": \"stockPrices\"\n" +
+        "      }\n" +
+        "    ]\n" +
+        "  }\n" +
+        "}"
+    val data = "[{\n" +
+        "\"stockPrices\": [42.5, 45.3, 44.8, 46.1, 45.9, 47.0, 46.8, 47.5]\n" +
+        "}]"
+
+    InterpretComponent(JsonUtils.getTemplateAndDataFromResponse(template, data))
 }
