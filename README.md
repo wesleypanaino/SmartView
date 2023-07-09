@@ -12,31 +12,109 @@ This repository demonstrates how to interpret a JSON template in order to dynami
 ## Usage
 To use this project, you need to provide a JSON template that defines the structure of the view you want to generate, and JSON data that provides the content for these views.
 
-Here's an example of a simple JSON template and data:
-
+Here's an example of a simple list
 Template:
 ```json
 {
-  "type": "single",
+  "type": "list",
   "dataTemplate": {
     "elements": [
       {
         "type": "text",
-        "mapTo": "text1"
+        "mapTo": "id"
+      },
+      {
+        "type": "text",
+        "mapTo": "title"
+      },
+      {
+        "type": "button",
+        "mapTo": "body",
+        "attributes": {
+          "text": "Details"
+        }
       }
     ]
   }
 }
 ```
 
-Here is the corresponding data:
+Data:
 ```json
 [
   {
-    "text1": "This is the first text"
+    "userId": 1,
+    "id": 1,
+    "title": "title 1",
+    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+  },
+  {
+    "userId": 2,
+    "id": 2,
+    "title": "title text 2",
+    "body": "Body example"
+  }
+]
+
+```
+UI:
+
+![List Example](./examples/DemoList.png)
+
+Graphing Example
+Template:
+```json
+{
+  "type": "list",
+  "dataTemplate": {
+    "elements": [
+      {
+        "type": "text",
+        "mapTo": "title"
+      },
+      {
+        "type": "text",
+        "mapTo": "description"
+      },
+      {
+        "type": "lineChart",
+        "mapTo": "dataPoints"
+      }
+    ]
+  }
+}
+```
+Data:
+```json
+[
+  {
+    "title": "Title 1",
+    "description": "This is a description for item 1.",
+    "dataPoints": [42.5, 45.3, 44.8, 46.1, 45.9, 47.0, 46.8, 47.5]
+  },
+  {
+    "title": "Title 2",
+    "description": "This is a description for item 2.",
+    "dataPoints": [50.3, 48.6, 51.2, 49.5, 50.8, 49.2, 50.5, 51.8]
+  },
+  {
+    "title": "Title 3",
+    "description": "This is a description for item 3.",
+    "dataPoints": [40.1, 39.5, 41.2, 40.6, 39.9, 41.6, 40.0, 42.7]
   }
 ]
 ```
+UI:
+
+![Line Graph Example](./examples/DemoGraphWithTitle.png)
+
+Other UI Examples:
+
+![Long Text Example](./examples/DemoLongText.png)
+
+![Nested Example](./examples/DemoNested.png)
+
+![Error Example](./examples/DemoError.png)
 
 ## Setup
 Clone the repository.
