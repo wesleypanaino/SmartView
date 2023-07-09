@@ -1,5 +1,15 @@
 # SmartView
 
+## Table of Contents
+
+- [Overview](#Overview)
+- [Screenshots](#Screenshots)
+- [Features](#Features)
+- [Usage](#Usage)
+- [Examples](#Examples)
+- [Setup](#Setup)
+- [License](#License)
+
 ## Overview
 This repository demonstrates how to interpret a JSON template in order to dynamically create views with data in Jetpack Compose. It supports a variety of components including text, button, line chart, scatter plot, table, and nested rows and columns.
 
@@ -29,6 +39,7 @@ This repository demonstrates how to interpret a JSON template in order to dynami
 ## Usage
 To use this project, you need to provide a JSON template that defines the structure of the view you want to generate, and JSON data that provides the content for these views.
 
+## Examples
 Here's an example of a Simple List:
 
 Template:
