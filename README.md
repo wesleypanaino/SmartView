@@ -3,6 +3,23 @@
 ## Overview
 This repository demonstrates how to interpret a JSON template in order to dynamically create views with data in Jetpack Compose. It supports a variety of components including text, button, line chart, scatter plot, table, and nested rows and columns.
 
+## Screenshots
+1. Get Data
+
+<img src="./examples/GetDataLight.png" width="20%">      <img src="./examples/GetData.png" width="20%">
+
+2. View the sampled data item
+
+<img src="./examples/JSONDataLight.png" width="20%">      <img src="./examples/JSONData.png" width="20%">
+
+3. View the generated UI template to Data mapping
+
+<img src="./examples/TemplatesLight.png" width="20%">      <img src="./examples/Templates.png" width="20%">
+
+4. View the generated UI
+
+<img src="./examples/UILight.png" width="20%">      <img src="./examples/UI.png" width="20%">
+
 ## Features
 - Interprets JSON templates and data to generate dynamic views in Jetpack Compose.
 - Supports multiple types of components including text, button, line chart, scatter plot, and table.
@@ -12,7 +29,8 @@ This repository demonstrates how to interpret a JSON template in order to dynami
 ## Usage
 To use this project, you need to provide a JSON template that defines the structure of the view you want to generate, and JSON data that provides the content for these views.
 
-Here's an example of a simple list
+Here's an example of a Simple List:
+
 Template:
 ```json
 {
@@ -59,9 +77,10 @@ Data:
 ```
 UI:
 
-![List Example](./examples/DemoList.png)
+<img src="./examples/DemoList.png" width="20%">
 
-Graphing Example
+Graphing Example:
+
 Template:
 ```json
 {
@@ -106,15 +125,13 @@ Data:
 ```
 UI:
 
-![Line Graph Example](./examples/DemoGraphWithTitle.png)
+<img src="./examples/DemoGraphWithTitle.png" width="20%">
 
 Other UI Examples:
 
-![Long Text Example](./examples/DemoLongText.png)
-
-![Nested Example](./examples/DemoNested.png)
-
-![Error Example](./examples/DemoError.png)
+<img src="./examples/DemoLongText.png" width="20%">
+<img src="./examples/DemoNested.png" width="20%">
+<img src="./examples/DemoError.png" width="20%">
 
 ## Setup
 Clone the repository.
