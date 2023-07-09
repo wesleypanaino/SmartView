@@ -13,7 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.smartview.utils.JsonUtils
+
 
 @Composable
 fun Table(headers: List<String>?, rows: List<Map<String, Any>>, keys: List<String>) {
@@ -70,4 +73,41 @@ fun Table(headers: List<String>?, rows: List<Map<String, Any>>, keys: List<Strin
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewDemoTable() {
+    DemoTable()
+}
+
+@Composable
+fun DemoTable() {
+       val template = "{\n" +
+        "  \"type\": \"list\",\n" +
+        "  \"dataTemplate\": {\n" +
+        "    \"elements\": [\n" +
+        "      {\n" +
+        "        \"type\": \"table\",\n" +
+        "        \"mapTo\": \"salesData\",\n" +
+        "        \"mapToList\": [\"product\", \"sales\", \"revenue\"],\n" +
+        "        \"attributes\": {\n" +
+        "          \"headers\": [\"Product\", \"Sales\", \"Revenue\"]\n" +
+        "        }\n" +
+        "      }\n" +
+        "    ]\n" +
+        "  }\n" +
+        "}\n"
+
+    val data = """
+    [{
+        "salesData": [
+            {"product": "Product A", "sales": 100, "revenue": 500},
+            {"product": "Product B", "sales": 200, "revenue": 1000},
+            {"product": "Product C", "sales": 150, "revenue": 750}
+        ]
+    }]
+""".trimIndent()
+
+    InterpretComponent(JsonUtils.getTemplateAndDataFromResponse(template, data))
 }
