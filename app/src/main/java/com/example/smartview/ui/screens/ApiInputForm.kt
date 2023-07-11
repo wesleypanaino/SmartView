@@ -2,15 +2,15 @@ package com.example.smartview.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import com.example.smartview.viewmodel.ApiErrorState
 import com.example.smartview.viewmodel.ApiViewModel
 
 //todo allow for manual input of data , then also allow for generate similar data to example
@@ -19,28 +19,50 @@ import com.example.smartview.viewmodel.ApiViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ApiInputForm(apiViewModel: ApiViewModel) {
-    var apiKey by remember { mutableStateOf("") }
-    var endpoint by remember { mutableStateOf("https://jsonplaceholder.typicode.com/posts") }
-
+    val errorMessage by apiViewModel.errorState.collectAsState()
     Column {
         Box {
             Column {
                 OutlinedTextField(
-                    value = endpoint,
-                    onValueChange = { it: String -> endpoint = it },
+                    value = apiViewModel.endpoint.value,
+                    onValueChange = { apiViewModel.endpoint.value = it },
                     label = { Text("API Endpoint") }
                 )
                 OutlinedTextField(
-                    value = apiKey,
-                    onValueChange = { it: String -> apiKey = it },
+                    value = apiViewModel.apiKey.value,
+                    onValueChange = { apiViewModel.apiKey.value = it },
                     label = { Text("API Key") }
                 )
-                Button(onClick = {
-                    apiViewModel.fetchData(endpoint, apiKey)
-                }) {
+                Button(
+                    onClick = {
+                        apiViewModel.fetchData()
+                    }) {
                     Text("Submit")
+                }
+                errorMessage?.let {
+                    val message = when (it) {
+                        is ApiErrorState.InvalidEndpoint -> it.error
+                        ApiErrorState.NetworkError -> "Network error"
+                        ApiErrorState.ServerError -> "Server error"
+                        ApiErrorState.UnknownError -> "Unknown error"
+                    }
+                    ShowErrorDialog(message) { apiViewModel.dismissError() }
                 }
             }
         }
     }
+}
+
+@Composable
+fun ShowErrorDialog(message: String, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Error") },
+        text = { Text(message) },
+        confirmButton = {
+            Button(onClick = onDismiss) {
+                Text("Dismiss")
+            }
+        }
+    )
 }
